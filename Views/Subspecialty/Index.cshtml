@@ -1,0 +1,68 @@
+﻿@model SubspecialtyViewModel;
+
+
+@{
+    ViewData["Title"] = "Subspecialty";
+    Layout = "_Layout";
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <!----- START THEATRE ----->
+            <th>
+                @Html.DisplayNameFor(model => model.Subspecialties![0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subspecialties![0].Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subspecialties![0].Speciality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subspecialties![0].SubSpeciality)
+            </th>
+            <!----- END THEATRE ----->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Subspecialties!)
+        {
+            <tr>
+                <!----- START SCHEDULE ----->
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speciality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubSpeciality)
+                </td>
+                <!----- END SESSION ----->
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

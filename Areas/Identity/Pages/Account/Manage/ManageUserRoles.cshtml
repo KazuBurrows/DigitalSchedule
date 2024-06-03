@@ -1,0 +1,66 @@
+﻿@page
+@model ManageUserRolesModel
+@{
+    ViewData["Title"] = "Manage User Roles";
+    ViewData["ActivePage"] = ManageNavPages.ManageUserRoles;
+}
+
+<h3>@ViewData["Title"]</h3>
+@if (Model.AllAdmins?.Count > 0)
+{
+    <h4>Admins</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.AllAdmins)
+            {
+                <tr>
+                    <td>@user</td>
+                    <td>
+                        <form method="post">
+                            <button id="" type="submit" asp-route-id="@user.Id" asp-page-handler="Edit" class="btn btn-primary">Edit</button>
+                            <button id="" type="submit" asp-route-id="@user.Id" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.AllMembers?.Count > 0)
+{
+    <h4>Members</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.AllMembers)
+            {
+                <tr>
+                    <td>@user</td>
+                    <td>
+                        <form method="post">
+                            <button id="" type="submit" asp-route-id="@user.Id" asp-page-handler="Edit" class="btn btn-primary">Edit</button>
+                            <button id="" type="submit" asp-route-id="@user.Id" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

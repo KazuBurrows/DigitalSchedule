@@ -1,0 +1,362 @@
+﻿
+@model ScheduleViewModel;
+
+
+@{
+    ViewData["Title"] = "Schedule";
+    Layout = "_Layout";
+}
+
+
+
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Schedule List</h6>
+                    <a class="btn btn-primary" asp-action="Create">Create New</a>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0" style="height: 79vh;">
+                            <table class="table align-items-center mb-0">
+                            <!--
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Function</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            -->
+                            
+                            <thead>
+                                <tr>
+                                    <!----- START SCHEDULE ----->
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Week), "Index", new { sortOrder = ViewBag.WeekSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Day), "Index", new { sortOrder = ViewBag.DaySortParm })
+                                    </th>
+                                    <th class ="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].IsAm), "Index", new { sortOrder = ViewBag.IsAMSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].TimeStart), "Index", new { sortOrder = ViewBag.TimeStartSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].TimeEnd), "Index", new { sortOrder = ViewBag.TimeEndSortParm })
+                                    </th>
+                                    <!----- END SCHEDULE ----->
+                                    <!----- START THEATRE ----->
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].TheatreId), "Index", new { sortOrder = ViewBag.TheatreIdSortParm })
+                                        </th>
+                                    }
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Theatre.Name), "Index", new { sortOrder = ViewBag.TheatreNameSortParm })
+                                    </th>
+                                    <!----- END THEATRE ----->
+                                    <!----- START SESSION ----->
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].SessionId), "Index", new { sortOrder = ViewBag.SessionIdSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Name), "Index", new { sortOrder = ViewBag.SessionNameSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Staff.FirstName), "Index", new { sortOrder = ViewBag.FirstNameSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Staff.LastName), "Index", new { sortOrder = ViewBag.LastNameSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Subspecialty.Code), "Index", new { sortOrder = ViewBag.CodeSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Subspecialty.Speciality), "Index", new { sortOrder = ViewBag.SpecialitySortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.Subspecialty.SubSpeciality), "Index", new { sortOrder = ViewBag.SubSpecialitySortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.AnaestheticType), "Index", new { sortOrder = ViewBag.AnaestheticTypeSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.IsAcute), "Index", new { sortOrder = ViewBag.IsAcuteSortParm })
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        @Html.ActionLink(Html.DisplayNameFor(model => model.TheatreSchedule![0].Session.IsPediatric), "Index", new { sortOrder = ViewBag.IsPediatricSortParm })
+                                    </th>
+
+                                    <!----- END SESSION ----->
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--
+                                    <tr>
+                                    <td>
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                                <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">John Michael</h6>
+                                                <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">Manager</p>
+                                        <p class="text-xs text-secondary mb-0">Organization</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span class="badge badge-sm bg-gradient-success">Online</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                                -->
+                                    <tr>
+                                        <form asp-controller="Schedule" asp-action="Index" method="get">
+                                        <td>
+                                            <input type="text" name="SearchWeek" value="@Model.SearchWeek" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchDay" value="@Model.SearchDay" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchAMPM" value="@Model.SearchAMPM" style="width:100px; height:20px" />
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                            <td>
+                                                <input type="text" name="SearchTheatreId" value="@Model.SearchTheatreId" style="width:100px; height:20px" />
+                                            </td>
+                                            }
+                                        <td>
+                                            <input type="text" name="SearchTheatre" value="@Model.SearchTheatre" style="width:100px; height:20px" />
+                                        </td>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                            <td>
+                                                <input type="text" name="SearchSessionId" value="@Model.SearchSessionId" style="width:100px; height:20px" />
+                                            </td>
+                                            }
+                                        <td>
+                                            <input type="text" name="SearchSession" value="@Model.SearchSession" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchFirstName" value="@Model.SearchFirstName" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchLastName" value="@Model.SearchLastName" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchCode" value="@Model.SearchCode" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchSpeciality" value="@Model.SearchSpeciality" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchSubSpeciality" value="@Model.SearchSubSpeciality" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchAnaestheticType" value="@Model.SearchAnaestheticType" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchAcute" value="@Model.SearchAcute" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="SearchPediatric" value="@Model.SearchPediatric" style="width:100px; height:20px" />
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Filter" />
+                                        </td>
+                                        </form>
+                                    </tr>
+
+                                
+                                @foreach (var item in Model.TheatreSchedule!)
+                                {
+                                    <tr>
+                                        <!----- START SCHEDULE ----->
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">@Html.DisplayFor(modelItem => item.Week)</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">@Html.DisplayFor(modelItem => item.Day)</p>
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.IsAm)
+                                                {
+                                                    <p  class="text-xs font-weight-bold mb-0">AM</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="text-xs font-weight-bold mb-0">PM</p>
+                                                }
+                                            }
+                                        </td>
+
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.TimeStart)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.TimeEnd)
+                                        </td>
+                                        <!----- END SCHEDULE ----->
+                                        <!----- START THEATRE ----->
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.TheatreId)
+                                            </td>
+                                        }
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Theatre.Name)
+                                        </td>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <p class="text-xs font-weight-bold mb-0"></p>
+                                            <!--
+                                                <td>
+                                            @Html.DisplayFor(modelItem => item.Theatre.Facility)
+                                                </td>
+                                                <td>
+                                            @Html.DisplayFor(modelItem => item.Theatre.ScopeTheatreCode)
+                                                </td>
+                                                <td>
+                                            @Html.DisplayFor(modelItem => item.Theatre.Equipment)
+                                                </td>
+                                                <td>
+                                            @Html.DisplayFor(modelItem => item.Theatre.Specialties)
+                                                </td>
+                                                <td>
+                                            @Html.DisplayFor(modelItem => item.Theatre.Pediatric)
+                                                </td>
+
+                                            -->
+                                        }
+                                        <!----- END THEATRE ----->
+                                        <!----- START SESSION ----->
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.SessionId)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Name)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Staff.FirstName)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Staff.LastName)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Subspecialty.Code)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Subspecialty.Speciality)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.Subspecialty.SubSpeciality)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.AnaestheticType)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.IsAcute)
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0"></p>@Html.DisplayFor(modelItem => item.Session.IsPediatric)
+                                        </td>
+                                        <!----- END SESSION ----->
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <td class="align-middle">
+                                                <a class="text-secondary font-weight-bold text-xs" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                                <a class="text-secondary font-weight-bold text-xs" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                            @{
+                                var prevDisabled = !Model.TheatreSchedule.HasPreviousPage ? "disabled" : "";
+                                var nextDisabled = !Model.TheatreSchedule.HasNextPage ? "disabled" : "";
+                            }
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@Model.SortOrder"
+                               asp-route-pageNumber="@(Model.TheatreSchedule.PageIndex - 1)"
+                               asp-route-searchWeek="@Model.SearchWeek"
+                               asp-route-searchDay="@Model.SearchDay"
+                               asp-route-searchAMPM="@Model.SearchAMPM"
+                               asp-route-searchTheatreId="@Model.SearchTheatreId"
+                               asp-route-searchTheatre="@Model.SearchTheatre"
+                               asp-route-searchSessionId="@Model.SearchSessionId"
+                               asp-route-searchSession="@Model.SearchSession"
+                               asp-route-searchFirstName="@Model.SearchFirstName"
+                               asp-route-searchLastName="@Model.SearchLastName"
+                               asp-route-searchCode="@Model.SearchCode"
+                               asp-route-searchSpeciality="@Model.SearchSpeciality"
+                               asp-route-searchSubSpeciality="@Model.SearchSubSpeciality"
+                               asp-route-searchAnaestheticType="@Model.SearchAnaestheticType"
+                               asp-route-searchAcute="@Model.SearchAcute"
+                               asp-route-searchPediatric="@Model.SearchPediatric"
+                               class="btn btn-default @prevDisabled">
+                                Previous
+                            </a>
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@Model.SortOrder"
+                               asp-route-pageNumber="@(Model.TheatreSchedule.PageIndex + 1)"
+                               asp-route-searchWeek="@Model.SearchWeek"
+                               asp-route-searchDay="@Model.SearchDay"
+                               asp-route-searchAMPM="@Model.SearchAMPM"
+                               asp-route-searchTheatreId="@Model.SearchTheatreId"
+                               asp-route-searchTheatre="@Model.SearchTheatre"
+                               asp-route-searchSessionId="@Model.SearchSessionId"
+                               asp-route-searchSession="@Model.SearchSession"
+                               asp-route-searchFirstName="@Model.SearchFirstName"
+                               asp-route-searchLastName="@Model.SearchLastName"
+                               asp-route-searchCode="@Model.SearchCode"
+                               asp-route-searchSpeciality="@Model.SearchSpeciality"
+                               asp-route-searchSubSpeciality="@Model.SearchSubSpeciality"
+                               asp-route-searchAnaestheticType="@Model.SearchAnaestheticType"
+                               asp-route-searchAcute="@Model.SearchAcute"
+                               asp-route-searchPediatric="@Model.SearchPediatric"
+                               class="btn btn-default @nextDisabled">
+                                Next
+                            </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    
+</div>
+
+

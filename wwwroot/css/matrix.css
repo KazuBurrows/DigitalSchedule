@@ -1,0 +1,72 @@
+﻿
+
+
+.facilityName {
+    /*    grid-area: facility;*/
+    transform: rotate(-90deg) translate(0px, 150px);
+    font-weight: bold;
+    font-size:larger;
+    margin: auto 0;
+    height: 380px;
+}
+
+.schedule {
+    grid-area: schedule;
+}
+
+.matrix .table {
+    background-color: rgb(243, 243, 243);
+}
+
+.matrix .table > :not(caption) > * > * {
+    padding: 0;
+}
+
+.matrix .table thead th {
+    width: 50px;
+}
+
+
+.matrix {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: .3fr auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "facility schedule";
+}
+
+.matrix .table p {
+    font-size: 11px;
+}
+
+.matrix .table td {
+    font-size: 11px;
+}
+
+.matrix .content-table {
+    margin: 0;
+    padding: 0;
+    width: 160px;
+    text-align: center;
+}
+
+.matrix-col {
+    text-align: center;
+}
+
+
+.martrix-morning {
+    background-color: rgba(118, 152, 234, 0.02);
+    height: 150px;
+}
+
+.martrix-afternoon {
+    background-color: rgba(118, 152, 234, 0.07);
+    height: 150px;
+}
+
+.am-pm {
+    width: 60px;
+    text-align: center;
+}

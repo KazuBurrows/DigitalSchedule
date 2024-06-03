@@ -1,0 +1,111 @@
+﻿<!--model CDHB_Official.sakila.Schedule-->
+@model CDHB_Official.Models.MatrixCreateViewModel;
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout";
+}
+
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="Create" id="create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.TheatreId" class="control-label"></label>
+                <select asp-for="schedule.TheatreId" class="form-control">
+                    @foreach (var item in Model.TheatreSelector)
+                    {
+                        if (item.Id == Model.TempTheatre.Id)
+                        {
+                            <option selected="selected" value="@item.Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                        
+                    }
+                </select>
+                <span asp-validation-for="schedule.TheatreId" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.SessionId" class="control-label"></label>
+                <select asp-for="schedule.SessionId" class="form-control">
+                    @foreach (var item in Model.SessionSelector)
+                    {
+                        <option value="@item.Id">@item.Id @item.AnaestheticType</option>
+                    }
+                </select>
+                <span asp-validation-for="schedule.SessionId" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.Week" class="control-label"></label>
+                <input asp-for="schedule.Week" value="@Model.TempWeek" class="form-control" min="0" max="53" />
+                <span asp-validation-for="schedule.Week" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.IsAm" class="control-label"></label>
+                <input asp-for="TempIsAm" type="checkbox" />
+                <span asp-validation-for="schedule.IsAm" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.Day" class="control-label"></label>
+                <select asp-for="schedule.Day" class="form-control">
+                    @foreach (var item in Model.DaySelector)
+                    {
+                        if (item == Model.TempDay)
+                        {
+                            <option selected="selected" value="@item">@item</option>
+                        }
+                        else
+                        {
+                            <option value="@item">@item</option>
+                        }
+                        
+                    }
+                </select>
+                <span asp-validation-for="schedule.Day" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.TimeStart" class="control-label"></label>
+                <input asp-for="schedule.TimeStart" class="form-control datetime" type="text" />
+                <span asp-validation-for="schedule.TimeStart" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="schedule.TimeEnd" class="control-label"></label>
+                <input asp-for="schedule.TimeEnd" class="form-control datetime" type="text" />
+                <span asp-validation-for="schedule.TimeEnd" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Matrix">Back to List</a>
+</div>
+
+
+
+<script>
+
+    // Below code sets format to the
+    // datetimepicker having id as
+    // datetime
+
+    $('.datetime').datetimepicker({
+        format: 'HH:mm'
+    });
+
+
+</script>

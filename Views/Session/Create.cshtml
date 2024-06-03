@@ -1,0 +1,72 @@
+﻿@model SessionCreateViewModel;
+
+
+@{
+    ViewData["Title"] = "Create Session";
+    Layout = "_Layout";
+}
+
+
+<h1>Create Session</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="Create" id="create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="session.Name" class="control-label"></label>
+                <input asp-for="session.Name" class="form-control" />
+                <span asp-validation-for="session.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="session.StaffId" class="control-label">Staff</label>
+                <select asp-for="session.StaffId" class="form-control">
+                    @foreach (var item in Model.StaffSelector)
+                    {
+                        <option value="@item.Id">@item.FirstName @item.LastName</option>
+                    }
+                </select>
+                <span asp-validation-for="session.StaffId" class="text-danger"></span>
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="session.SubspecialtyId" class="control-label">Subspecialty</label>
+                <select asp-for="session.SubspecialtyId" class="form-control">
+                    @foreach (var item in Model.SubspecialtySelector)
+                    {
+                        <option value="@item.Id">@item.Code @item.Speciality @item.SubSpeciality</option>
+                    }
+                </select>
+                <span asp-validation-for="session.SubspecialtyId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="session.IsAcute" class="control-label"></label>
+                <input asp-for="session.IsAcute" type="checkbox" />
+                <span asp-validation-for="session.IsAcute" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="session.IsPediatric" class="control-label"></label>
+                <input asp-for="session.IsPediatric" type="checkbox" />
+                <span asp-validation-for="session.IsPediatric" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="session.AnaestheticType" class="control-label"></label>
+                <select asp-for="session.AnaestheticType" class="form-control">
+                    @foreach (var item in Model.AnaestheticTypeSelector)
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </select>
+                <span asp-validation-for="session.AnaestheticType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

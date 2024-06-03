@@ -1,0 +1,183 @@
+﻿@model CDHB_Official.Models.MatrixViewModel;
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+    ViewData["Title"] = "Matrix";
+    Layout = "_Layout";
+}
+
+
+
+
+<h2>MATRIX</h2>
+
+
+<form asp-controller="Schedule" asp-action="Matrix" method="get">
+    <p>WEEK: 
+        <input type="text" name="week" value="@Model.ViewWeek" style="width:50px; " />
+        <input type="submit" value="Go" />
+    </p>
+    
+</form>
+
+@{
+    int offsetBack = Model.ViewWeek + -1;
+    int offsetNext = Model.ViewWeek + 1;
+
+    List<string> weekday = new List<string>();
+    weekday.Add("Monday");
+    weekday.Add("Tuesday");
+    weekday.Add("Wednesday");
+    weekday.Add("Thursday");
+    weekday.Add("Friday");
+    weekday.Add("Saturday");
+    weekday.Add("Sunday");
+}
+
+
+
+<a asp-action="Matrix" asp-route-week=@offsetBack class="btn btn-primary"><<<</a>
+<a asp-action="Matrix" asp-route-week=@offsetNext class="btn btn-primary">>>></a>
+
+    @foreach (var m_facility in Model.Matrix!)
+    {
+        <main class="main-content position-relative h-100 border-radius-lg ">
+            <div class="container-fluid py-4">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-0" style="height: auto;">
+                                <div class="matrix">
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th class="matrix-col" scope="col">
+                                            <p>Facility</p>
+                                        </th>
+                                        </thead>
+                                        <tbody>
+                                        <th class="matrix-col" scope="row">
+                                            <p class="facilityName">@m_facility.Name</p>
+                                        </th>
+
+                                        <table class="schedule table table-bordered">
+                                            <thead>
+                                            <th class="matrix-col" scope="col">
+                                                <p>Theatre Name</p>
+                                            </th>
+                                            <th class="matrix-col" scope="col">
+                                                <p>AM/PM</p>
+                                            </th>
+                                                    @foreach (var day in weekday)
+                                                    {
+                                                <th class="matrix-col" scope="col">
+                                                    <p>@day</p>
+                                                </th>
+                                                    }
+                                            </thead>
+                                            <tbody>
+                                                    @foreach (var theatreRow in m_facility.LocationTable)
+                                                    {
+                                                    <tr class="week">
+                                                        <td scope="row">
+                                                            <p>@theatreRow.Theatre.Name</p>
+                                                        </td>
+
+                                                        <td>
+                                                            <table class="am-pm">
+                                                                <tbody>
+                                                                    <tr class="martrix-morning">
+                                                                        <td>AM</td>
+                                                                    </tr>
+                                                                    <tr class="martrix-afternoon">
+                                                                        <td>PM</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+
+                                                            @for (int j = 0; j < 7; j++)
+                                                            {
+                                                            <td class="day">
+                                                                <table class="content-table">
+                                                                    <tbody>
+                                                                        <tr class="martrix-morning">
+                                                                            <td>
+                                                                                    @{
+                                                                                        var theatreAM = theatreRow.TheatreSchedule[0, j];
+                                                                                        if (theatreAM != null)
+                                                                                        {
+                                                                                        <a asp-action="Edit" asp-route-id="@theatreAM.Id">
+                                                                                            <p>@theatreAM.Session.Staff.LastName</p>
+                                                                                            <p>@theatreAM.Session.Subspecialty.Speciality</p>
+                                                                                            <p>@theatreAM.TimeStart - @theatreAM.TimeEnd</p>
+                                                                                        </a>
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            @if (User.IsInRole("Admin"))
+                                                                                            {
+                                                                                            <a asp-action="Create" asp-route-theatreId="@theatreRow.Theatre.Id" asp-route-week="@Model.ViewWeek" asp-route-day="@weekday[j]" asp-route-isAm="@(true)">New</a>
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="martrix-afternoon">
+                                                                            <td>
+                                                                                    @{
+                                                                                        var theatrePM = theatreRow.TheatreSchedule[1, j];
+                                                                                        if (theatrePM != null)
+                                                                                        {
+                                                                                        <a asp-action="Edit" asp-route-id="@theatrePM.Id">
+                                                                                            <p>@theatrePM.Session.Staff.LastName</p>
+                                                                                            <p>@theatrePM.Session.Subspecialty.Speciality</p>
+                                                                                            <p>@theatrePM.TimeStart - @theatrePM.TimeEnd</p>
+                                                                                        </a>
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            @if (User.IsInRole("Admin"))
+                                                                                            {
+                                                                                            <a asp-action="Create" asp-route-theatreId="@theatreRow.Theatre.Id" asp-route-week="@Model.ViewWeek" asp-route-day="@weekday[j]" asp-route-isAm="@(false)">New</a>
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            }
+
+                                                    </tr>
+                                                    }
+                                            </tbody>
+                                        </table>
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+            </div>
+        </main>
+        
+    }
+
+
+
+
+
+

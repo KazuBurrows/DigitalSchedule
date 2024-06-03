@@ -1,0 +1,92 @@
+﻿@model TheatreViewModel;
+
+
+@{
+    ViewData["Title"] = "Theatre";
+    Layout = "_Layout";
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <!----- START THEATRE ----->
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Facility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].ScopeTheatreCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Equipment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Specialties)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theatres![0].Pediatric)
+            </th>
+            <!----- END THEATRE ----->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Theatres!)
+        {
+            <tr>
+                <!----- START SCHEDULE ----->
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScopeTheatreCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Specialties)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pediatric)
+                </td>
+                <!----- END SESSION ----->
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+

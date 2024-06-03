@@ -1,0 +1,93 @@
+﻿@model CDHB_Official.Models.TheatreEditViewModel;
+
+@{
+    ViewData["Title"] = "Edit Theatre";
+    Layout = "_Layout";
+}
+
+<script>
+
+    var selected = [];
+
+    function myFunction(optId) {
+
+        let selectedIndex = selected.indexOf(optId);
+        if (selectedIndex == -1) {
+            selected.push(optId);
+        } else {
+            selected.splice(selectedIndex, 1);
+            $("#" + optId).prop("selected", false);
+        }
+
+        selected.forEach(x => {
+            $("#" + x).prop("selected", true);
+        })
+
+    }
+
+
+</script>
+
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="theatre.Id" />
+            <div class="form-group">
+                <label asp-for="theatre.Name" class="control-label"></label>
+                <input asp-for="theatre.Name" class="form-control" />
+                <span asp-validation-for="theatre.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="theatre.Location" class="control-label"></label>
+                <input asp-for="theatre.Location" class="form-control" />
+                <span asp-validation-for="theatre.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="theatre.Facility" class="control-label"></label>
+                <input asp-for="theatre.Facility" class="form-control" />
+                <span asp-validation-for="theatre.Facility" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="theatre.ScopeTheatreCode" class="control-label"></label>
+                <input asp-for="theatre.ScopeTheatreCode" class="form-control" />
+                <span asp-validation-for="theatre.ScopeTheatreCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="theatre.Equipment" class="control-label"></label>
+                <input asp-for="theatre.Equipment" class="form-control" />
+                <span asp-validation-for="theatre.Equipment" class="text-danger"></span>
+            </div>
+            <div type="hidden" class="form-group SCF">
+                <input type="hidden" asp-for="theatre.Specialties" value="Empty" class="form-control" />
+            </div>
+            <div class="form-group SCF">
+                <label asp-for="Selected" class="control-label"></label>
+                <select id="select-spec" readonly multiple asp-for="Selected" class="form-control">
+                    @foreach (var item in Model.SubspecialtySelector)
+                    {
+                        <option id="spec-@item.Id" onclick="myFunction(`spec-@item.Id`)" value="@item.Id">@item.Code @item.Speciality @item.SubSpeciality</option>
+                    }
+                </select>
+                <span asp-validation-for="theatre.Specialties" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="theatre.Pediatric" class="control-label"></label>
+                <input asp-for="theatre.Pediatric" type="checkbox" />
+                <span asp-validation-for="theatre.Pediatric" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="Submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

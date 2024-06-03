@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Bootstrap.v3.Datetimepicker</id>
+    <version>4.17.49</version>
+    <title>Bootstrap 3 Datetimepicker</title>
+    <authors>Eonasdan</authors>
+    <owners>Eonasdan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Eonasdan/bootstrap-datetimepicker</projectUrl>
+    <description>A date/time picker component designed to work with Bootstrap 3 and Momentjs.
+
+For usage, installation and demos see Project Site on GitHub
+
+For CSS version install Bootstrap.v3.Datetimepicker.CSS</description>
+    <releaseNotes>Updated bootstrap dependency to fix xss</releaseNotes>
+    <tags>bootstrap date time picker datetimepicker datepicker jquery</tags>
+    <dependencies>
+      <dependency id="bootstrap.Less" version="3.4.1" />
+      <dependency id="Moment.js" version="2.9.0" />
+    </dependencies>
+  </metadata>
+</package>
